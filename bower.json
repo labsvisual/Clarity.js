@@ -1,0 +1,6 @@
+{
+  "name": "Clarity",
+  "version": "1.0.0",
+  "description": "A simple retina-enabling library written in managed JS.",
+  "license": "MIT"
+}
