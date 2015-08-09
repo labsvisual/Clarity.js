@@ -1,0 +1,29 @@
+{
+  "name": "Clarity",
+  "version": "1.0.0",
+  "homepage": "https://github.com/labsvisual/Clarity.js",
+  "authors": [
+    "Shreyansh Pandey <334@doonschool.com>"
+  ],
+  "description": "A lightweight and no-pain library for automagically rendering retina images.",
+  "keywords": [
+    "simple",
+    "easy",
+    "retina",
+    "no",
+    "configuration",
+    "javascript",
+    "module",
+    "2x",
+    "free",
+    "opensource"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
