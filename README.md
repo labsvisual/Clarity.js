@@ -42,12 +42,52 @@ Now, since Clarity.js works by getting in all of the `img` tags of the page **be
 
 Incase you're wondering why so, it's because, the moment your browser fetches Clarity.js, it executes the script which contains a function indexing all of the images. Since it starts the moment it's loaded, it traverses over all of the already-loaded elements (parsed HTML); so, if your image files are below Clarity.js's inclusion point, it won't add them to the index.
 
+## Custom Configuration
+Want to specify your custom suffix for the retina image? Easy; now you can easily add configuration via a JSON-like form.
+
+### Custom Retina Suffix
+```html
+<body>
+
+  <img src="img/img1.png">
+  <img src="img/img2.png" data-clarity="escape">
+  ...
+
+  <script src="path/to/clarity.min.js#{at2xSuffix: '_retina'}"></script>
+
+</body>
+```
+Now, the retina images will be like: `img/img1_retina.png`
+
+### Custom Directory for Retina Images
+Sometimes, for modularity, you want to place all the retina image files in a custom directory, with **v1.0.1**, you can do that:
+
+```html
+<body>
+
+  <img src="img/img1.png">
+  <img src="img/img2.png" data-clarity="escape">
+  ...
+
+  <script src="path/to/clarity.min.js#{at2xSuffix: '_retina', retinaDir: 'retina-files'}"></script>
+
+</body>
+```
+Now, for example, img1_retina.png's directory will be: `img/retina-files/img1_retina.png`. *Remember, it's relative to the base path of the image files.*
+
+## Consider
+**NOTE:** The config object uses **SINGLE** quotation marks instead of the popular `"` form; it's required, otherwise the HTML parser won't be able to parse it.
+
 ## Problems
 If you think that you have the courage to download the repository, fix the code and then push it back again, feel free. :)
 
 ## Upcoming
-- Custom Image Suffix
+- Custom Image Suffix [**DONE**]
 - jQuery Plugin
+
+## Changelog
+- v1.0.1
+    - Added custom configuration options via a JSON like syntax.
 
 [Clarity.js Official Website](http://isomr.co/clarityjs)
 Shreyansh Pandey ([334@doonschool.com](mailto:334@doonschool.com))
