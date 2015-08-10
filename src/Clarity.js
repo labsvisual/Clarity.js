@@ -27,26 +27,54 @@ THE SOFTWARE.
 (function() {
 
   // Global Variables
-  //   Clarity (object)      : Stores the entire code base for Clarity.
-  //   context (object)      : Holds the current context, i.e. the 'window'.
-  //   imgElements (array)   : Holds the list of retina image elements to be manipulated later.
-  //   configObject (object) : Stores the configuration for the Clarity context.
+  //   Clarity       (object)      : Stores the entire code base for Clarity.
+  //   context       (object)      : Holds the current context, i.e. the 'window'.
+  //   imgElements   (array)       : Holds the list of retina image elements to be manipulated later.
+  //   at2xSuffix    (string)      : Stores the suffix to be added to each retia image.
+  //   retinaDir     (string)      : Stores the directory in which the retina images reside; "" for curent directory. (Relative to base path.)
 
   var Clarity = {},
       context = window;
 
   var imgElements = [];
 
-  var configObject = {
-    at2xSuffix : '@2x'
-  };
+  var at2xSuffix = "@2x",
+      retinaDir  = "";
 
   Clarity = {
 
-    // Incase you want to use your own suffix, you can state it here.
-    config: function(conf) {
+    // processes the configuration given.
+    resolveConfig: function() {
 
-      configObject.at2xSuffix = conf.suffix;
+      var scriptTags = document.getElementsByTagName("script");
+      for (var i = 0; i < scriptTags.length; i++) {
+
+        var currentTag = scriptTags[i],
+            src        = currentTag.getAttribute('src');
+
+        if (src == null || !(src.toLowerCase().indexOf('clarity') > -1)) { continue; }
+
+        var configIndex = src.lastIndexOf('{'),
+            config      = null;
+
+        if (configIndex > -1) {
+
+          config = src.substring(configIndex);
+
+        } else { break; }
+
+        if (config !== null) {
+
+          var obj = eval("(" + config + ")");
+
+          if (obj.at2xSuffix && obj.at2xSuffix !== "") { at2xSuffix = obj.at2xSuffix; }
+          if (obj.retinaDir  && obj.retinaDir  !== "") { retinaDir  = obj.retinaDir; }
+
+          break;
+
+        }
+
+      }
 
     },
 
@@ -98,7 +126,8 @@ THE SOFTWARE.
             srcNewAttr,
             data,
             path,
-            size = [];
+            size = [],
+            retinaD;
 
        size[0] = currentElement.height;
        size[1] = currentElement.width;
@@ -106,8 +135,11 @@ THE SOFTWARE.
        path = srcAttr.substring(0, srcAttr.lastIndexOf('/')),
        data = srcAttr.substring(srcAttr.lastIndexOf('/') + 1);
 
-       data = data.split('.')[0] + configObject.at2xSuffix + "." + data.split('.')[1];
-       path = path + "/" + data;
+       data = data.split('.')[0] + at2xSuffix + "." + data.split('.')[1];
+
+       retinaD = (retinaDir !== "" && retinaDir != null) ? retinaDir + "/" : "";
+
+       path = path + "/" + retinaD + data;
 
        currentElement.setAttribute('src', path);
        currentElement.setAttribute('style', 'height: ' + size[0] + 'px; width: ' + size[1] + 'px;');
@@ -117,11 +149,9 @@ THE SOFTWARE.
     },
 
     // Hold everything together.
-    init: function(conf) {
+    init: function() {
 
-      if (!(conf == undefined || conf == null)) {
-        this.config(conf);
-      }
+      this.resolveConfig();
 
       if (this.isDeviceRetina()) {
         this.indexElements();
