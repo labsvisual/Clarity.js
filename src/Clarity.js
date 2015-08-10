@@ -31,7 +31,7 @@ THE SOFTWARE.
   //   context       (object)      : Holds the current context, i.e. the 'window'.
   //   imgElements   (array)       : Holds the list of retina image elements to be manipulated later.
   //   at2xSuffix    (string)      : Stores the suffix to be added to each retia image.
-  //   retinaDir     (string)      : Stores the directory in which the retina images reside; __ for curent directory. (Relative to base path.)
+  //   retinaDir     (string)      : Stores the directory in which the retina images reside; "" for curent directory. (Relative to base path.)
 
   var Clarity = {},
       context = window;
