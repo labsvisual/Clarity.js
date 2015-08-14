@@ -105,6 +105,8 @@ If you think that you have the courage to download the repository, fix the code 
     - Added custom configuration options via a JSON like syntax.
 - v1.0.2
     - Added the ability to disable Clarity.js
+- v1.0.21
+    - Fixed the minified version. 
 
 [Clarity.js Official Website](http://isomr.co/clarityjs)
 Shreyansh Pandey ([334@doonschool.com](mailto:334@doonschool.com))
