@@ -32,6 +32,7 @@ THE SOFTWARE.
   //   imgElements   (array)       : Holds the list of retina image elements to be manipulated later.
   //   at2xSuffix    (string)      : Stores the suffix to be added to each retia image.
   //   retinaDir     (string)      : Stores the directory in which the retina images reside; "" for curent directory. (Relative to base path.)
+  //   isEnabled     (bool)        : If set to true, Clarity auto-prefix works; otherwise, doesn't.
 
   var Clarity = {},
       context = window;
@@ -39,7 +40,8 @@ THE SOFTWARE.
   var imgElements = [];
 
   var at2xSuffix = "@2x",
-      retinaDir  = "";
+      retinaDir  = "",
+      isEnabled  = true;
 
   Clarity = {
 
@@ -53,6 +55,7 @@ THE SOFTWARE.
             src        = currentTag.getAttribute('src');
 
         if (src == null || !(src.toLowerCase().indexOf('clarity') > -1)) { continue; }
+        if (src.indexOf('#disabled') > -1) { isEnabled = false; break; }
 
         var configIndex = src.lastIndexOf('{'),
             config      = null;
@@ -152,6 +155,10 @@ THE SOFTWARE.
     init: function() {
 
       this.resolveConfig();
+
+      if (!isEnabled) {
+        return;
+      }
 
       if (this.isDeviceRetina()) {
         this.indexElements();
