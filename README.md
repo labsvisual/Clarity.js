@@ -75,6 +75,21 @@ Sometimes, for modularity, you want to place all the retina image files in a cus
 ```
 Now, for example, img1_retina.png's directory will be: `img/retina-files/img1_retina.png`. *Remember, it's relative to the base path of the image files.*
 
+## Disable Clarity
+In case you're wondering is you can disable the library after you've included it: you can. As of version **v1.0.2**, you just need to add the `#disabled` tag in the `src` attribute and voilà. A more practical demo, here:
+
+```html
+<body>
+
+  <img src="img/img1.png">
+  <img src="img/img2.png" data-clarity="escape">
+  ...
+
+  <script src="path/to/clarity.min.js#disabled"></script>
+
+</body>
+```
+
 ## Consider
 **NOTE:** The config object uses **SINGLE** quotation marks instead of the popular `"` form; it's required, otherwise the HTML parser won't be able to parse it.
 
@@ -82,12 +97,14 @@ Now, for example, img1_retina.png's directory will be: `img/retina-files/img1_re
 If you think that you have the courage to download the repository, fix the code and then push it back again, feel free. :)
 
 ## Upcoming
-- Custom Image Suffix [**DONE**]
+- ~~Custom Image Suffix~~
 - jQuery Plugin
 
 ## Changelog
 - v1.0.1
     - Added custom configuration options via a JSON like syntax.
+- v1.0.2
+    - Added the ability to disable Clarity.js
 
 [Clarity.js Official Website](http://isomr.co/clarityjs)
 Shreyansh Pandey ([334@doonschool.com](mailto:334@doonschool.com))
